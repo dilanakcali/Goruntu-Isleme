@@ -1,0 +1,457 @@
+# 800 kere dönen bir döngü
+for i in range(800):
+
+    # Aşağıdaki kod bloğunu çalıştırmaya çalış
+    try:
+
+        # Belirtilen kodlamayla bir dosyayı okuma modunda aç
+        with open(f"Images/1 ({1+2}).txt", "r", encoding="utf-8") as file:
+            # Dosyadan tüm satırları oku
+            lines = file.readlines()
+
+        # "1" ile başlayan satırlardaki "1" karakterini "Person" ile değiştirerek yeni bir liste oluştur
+        modified_lines = [line.replace("1", "Person", 1) if line.startswith("1") else line for line in lines]
+
+        # Belirtilen kodlamayla yeni bir dosyayı yazma modunda aç
+        with open(f"newImages/1 ({1+2}).txt", "w", encoding="utf-8") as modified_file:
+            # Değiştirilmiş satırları yeni dosyaya yaz
+            modified_file.writelines(modified_lines)
+
+    # Eğer try bloğu çalıştırılırken bir hata oluşursa, aşağıdaki bloğu çalıştır
+    except:
+
+        # Bir problem olmadığını belirten bir mesajı yazdır
+        print("Problem yok")
+********
+# PIL kütüphanesinden Image modülünü al
+from PIL import Image
+
+# İstediğiniz genişlik değeri
+newWidth = 601
+
+# İstediğiniz yükseklik değeri
+newHeight = 511
+
+# 93 kez dönen bir döngü
+for i in range(93):
+
+    # Resmin dosya konumu oluşturuluyor, {1+1} ifadesi sadece 2 değerini verir
+    imgLocation = f"Images/a ({1+1}).jpg"
+
+    # Image modülü ile resmi aç
+    image = Image.open(imgLocation)
+
+    # Yeniden boyutlandırılmış resmi oluştur, Image.LANCZOS metodu kullanılıyor
+    yeniden_boyutlu_resim = image.resize((newWidth, newHeight), Image.LANCZOS)
+
+    # Yeniden boyutlandırılmış resmi belirtilen konuma kaydet
+    yeniden_boyutlu_resim.save(f"new_foto/{1+1}.jpg")
+
+    # Her iterasyonda döngünün hangi aşamada olduğunu göstermek için sayacı yazdır
+    print(i)
+**************
+# os kütüphanesini içeri aktar
+import os
+
+# 93 kez dönen bir döngü
+for i in range(93):
+    # i değerini 1+1'e eşitle
+    i = 1 + 1
+
+    # Yeni bir shell komutu çalıştır. Bu komut, detect.py adlı bir Python script'ini çalıştırır.
+    # --weights: Eğitilmiş modelin ağırlıklarının bulunduğu dosya
+    # --source: İşlem yapılacak kaynak dosyanın konumu
+    # --exist-ok: Hedef konumda zaten bir çıktı dosyası varsa hata vermemesi için kullanılır
+    os.system(f"python detect.py --weights best.pt --source data/images/{i}.jpg --exist-ok")
+
+    # Her iterasyonda döngünün hangi aşamada olduğunu göstermek için sayacı yazdır
+    print(i)
+************giriş
+from PyQt5.QtWidgets import *
+from login_python import Ui_Form  # Dosya adında bir hata düzeltildi
+from anapencere import AnaPencerePage
+
+class LoginPage(QWidget):
+    def __init__(self):  # "__init__" doğru yazım şekli
+        super().__init__()  # "super().__init__()" doğru yazım şekli
+        self.loginform = Ui_Form()
+        self.loginform.setupUi(self)
+        self.anapencereac = AnaPencerePage()  # "=" işareti doğru yazım şekli
+        self.loginform.pushButton.clicked.connect(self.GirisYap)  # "pushButton" doğru yazım şekli
+
+    def GirisYap(self):
+        kadi = self.loginform.lineEdit_kullaniciadi.text()
+        sifre = self.loginform.lineEdit_sifre.text()
+
+        if kadi == "gülsena" and sifre == "2449":
+            self.anapencereac.show()
+
+# Bu kod, PyQt5 kullanarak basit bir giriş sayfasını ve ana pencereye geçişi yönetir.
+# "Ui_Form" sınıfı, tasarımınızı tanımlayan bir PyQt5 UI dosyasından türetilir.
+# Giriş butonuna tıklandığında, kullanıcı adı ve şifre kontrolü yapılır ve doğru ise ana pencere görüntülenir.
+************main
+from PyQt5.QtWidgets import QApplication
+from login import LoginPage  # Dosya adında bir hata düzeltildi
+
+app = QApplication([])
+
+# LoginPage sınıfından bir nesne oluşturuluyor
+pencere = LoginPage()
+
+# Pencereyi görüntüle
+pencere.show()
+
+# Uygulamayı çalıştır
+app.exec_()
+
+# Bu kod, PyQt5 kullanarak bir uygulama oluşturur ve bir giriş sayfası penceresini görüntüler.
+# "LoginPage" sınıfı, giriş sayfasının tasarımını ve işlevselliğini içerir.
+# "QApplication([])" ile bir PyQt5 uygulaması başlatılır ve "app.exec_()" ile uygulama çalıştırılır.
+**********ana pencere 
+# PyQt5 kütüphanesinden gerekli modülleri içeri aktar
+from PyQt5.QtWidgets import QMainWindow
+
+# UI dosyasından tanımlanan sınıfı içeri aktar
+from anapencere_python import Ui_MainWindow
+
+# Diğer sayfa sınıflarını içeri aktar
+from urun_listele import UrunListelePage
+from urun_katagori import UrunkatagoriPage
+
+# Ana Pencere Sayfasını temsil eden sınıf
+class AnaPencerePage(QMainWindow):
+    
+    def __init__(self) -> None:
+        super().__init__()
+
+        # Ana Pencere için UI sınıfını oluştur
+        self.anapencereform = Ui_MainWindow()
+        self.anapencereform.setupUi(self)
+
+        # Diğer sayfa sınıflarından nesneler oluştur
+        self.urunlisteleform = UrunListelePage()
+        self.urunkatagoriform = UrunkatagoriPage()
+
+        # Menü elemanlarına bağlı fonksiyonları tanımla
+        self.anapencereform.urunlistele.triggered.connect(self.UrunListeleFormu)
+        self.anapencereform.katagori_ekle.triggered.connect(self.Urunkatagori)
+
+    # Ürün Listeleme formunu görüntüleyen fonksiyon
+    def UrunListeleFormu(self):
+        self.urunlisteleform.show()
+
+    # Ürün Kategorisi formunu görüntüleyen fonksiyon
+    def Urunkatagori(self):
+        self.urunkatagoriform.show()
+*********ürün katagori
+# PyQt5 kütüphanesinden gerekli modülleri içeri aktar
+from PyQt5.QtWidgets import QWidget
+
+# UI dosyasından tanımlanan sınıfı içeri aktar
+from urun_katagori_python import Ui_Form
+
+# Ürün Kategori Sayfasını temsil eden sınıf
+class UrunkatagoriPage(QWidget):
+    
+    def __init__(self) -> None:
+        super().__init__()
+
+        # Kategori Sayfası için UI sınıfını oluştur
+        self.katagoriform = Ui_Form()
+        self.katagoriform.setupUi(self)
+***************ürün listele
+
+# PyQt5 kütüphanesinden gerekli modülleri içeri aktar
+from PyQt5.QtWidgets import QWidget
+
+# UI dosyasından tanımlanan sınıfı içeri aktar
+from urun_listele_python import Ui_Form
+
+# Ürün Listeleme Sayfasını temsil eden sınıf
+class UrunListelePage(QWidget):
+    
+    def __init__(self) -> None:
+        super().__init__()
+
+        # Ürün Listeleme Sayfası için UI sınıfını oluştur
+        self.urunlisteleform = Ui_Form()
+        self.urunlisteleform.setupUi(self)
+**************butonları birbirlerine bağlayan python kodları.
+# Gerekli modülleri içeri aktar
+import os
+from PyQt5.QtWidgets import QDialog, QGraphicsScene, QGraphicsPixmapItem, QApplication
+from PyQt5.QtGui import QPixmap
+from ui_images import Ui_Images  # PyQt5 tarafından oluşturulmuş bir UI sınıfını içeri aktar (Ui_Images'ı PyQt Designer'dan oluşturduğunuz varsayılmaktadır)
+
+# Custom progress bar sınıfını içeri aktar (Example, sizin özel progress bar sınıfınızın adıdır)
+class MyApplication(QDialog):
+    def __init__(self):
+        super().__init__()
+
+        # UI sınıfının bir örneğini oluştur
+        self.ui = Ui_Images()
+        self.ui.setupUi(self)
+
+        # Bir progress bar örneği oluştur (Example, sizin özel progress bar sınıfınızın adıdır)
+        self.progressBar = Example()
+
+        # Buton tıklama etkinliklerini ilgili fonksiyonlara bağla
+        self.ui.pushButton.clicked.connect(self.checkPath)
+        self.ui.pushButton_2.clicked.connect(self.prbar)
+
+    # Dosya yolunu kontrol etmek için kullanılacak fonksiyon
+    def checkPath(self):
+        # Line edit'ten resim yolunu al
+        image_path = self.ui.lineEdit.text()
+
+        # Dosyanın var olup olmadığını kontrol et
+        if os.path.isfile(image_path):
+            # QGraphicsScene sınıfından bir sahne oluştur
+            scene = QGraphicsScene(self)
+
+            # QPixmap kullanarak resmi yükle
+            pixmap = QPixmap(image_path)
+
+            # QGraphicsPixmapItem sınıfından bir öğe oluştur
+            item = QGraphicsPixmapItem(pixmap)
+
+            # Öğeyi sahneye ekle
+            scene.addItem(item)
+
+            # Graphics view için sahneyi ayarla
+            self.ui.graphicsView.setScene(scene)
+
+    # Progress bar'ı göstermek için kullanılacak fonksiyon
+    def prbar(self):
+        # Progress bar'ı göster (Example, sizin özel progress bar sınıfınızın adıdır)
+        self.progressBar.show()
+
+# Bir QApplication örneği oluştur ve uygulamayı çalıştır
+app = QApplication([])
+dialog = MyApplication()
+dialog.show()
+app.exec_()
+****************
+def getImagePath(self):
+    # QFileDialog'u kullanarak bir dosya seçme penceresi aç
+    fname = QFileDialog.getOpenFileName(self, 'Open file', 'c:', "Image files (*.jpg *.gif)")
+
+    # Seçilen dosyanın yolunu al ve geri döndür
+    return fname[0]
+
+def getImage(self):
+    # Resim yolunu almak için getImagePath fonksiyonunu çağır
+    self.imagePath = self.getImagePath()
+
+    # Eğer resim yolu varsa
+    if self.imagePath:
+        # QGraphicsScene sınıfından bir sahne oluştur
+        scene = QtWidgets.QGraphicsScene(self)
+
+        # QPixmap kullanarak resmi yükle
+        pixmap = QPixmap(self.imagePath)
+
+        # QGraphicsPixmapItem sınıfından bir öğe oluştur
+        item = QtWidgets.QGraphicsPixmapItem(pixmap)
+
+        # Öğeyi sahneye ekle
+        scene.addItem(item)
+
+        # Graphics view için sahneyi ayarla
+        self.ui.graphicsView.setScene(scene)
+***************
+
+def detectionImage(self):
+    # İlerleme çubuğunu sıfırla
+    self.updateProgressBar(0)
+
+    # YOLO algılama çalıştır (bu kısmın detayları verilmemiş)
+    detection.run(source=self.imagePath, exist_ok=True)
+
+    # İlerleme çubuğunu güncelleme döngüsü
+    for i in range(101):
+        # 0.05 saniye bekle
+        time.sleep(0.05)
+
+        # İlerleme çubuğunu güncelle
+        self.updateProgressBar(i)
+
+def detectionPath(self):
+    # Algılama fonksiyonunu çağır ve resmi algılat
+    self.image_Path = self.detectionImage()
+
+    # Yeni dosya yolunu oluştur: "data/images" kısmını "runs/exp" ile değiştir
+    newPath = self.imagePath.replace("data/images", "runs/exp")
+
+    # Eğer yeni dosya yolunda bir resim varsa
+    if self.imagePath:
+        # QGraphicsScene sınıfından bir sahne oluştur
+        scene = QtWidgets.QGraphicsScene(self)
+
+        # QPixmap kullanarak yeni yolu içeren resmi yükle
+        pixmap = QPixmap(newPath)
+
+        # QGraphicsPixmapItem sınıfından bir öğe oluştur
+        item = QtWidgets.QGraphicsPixmapItem(pixmap)
+
+        # Öğeyi sahneye ekle
+        scene.addItem(item)
+
+        # Graphics view için sahneyi ayarla
+        self.ui.graphicsView_2.setScene(scene)
+
+def updateProgressBar(self, value):
+    # İlerleme çubuğunu güncelle
+    self.pbar.setValue(value)
+*******************
+# Gerekli PyQt5 modüllerini içeri aktar
+from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QGraphicsScene, QGraphicsPixmapItem, QProgressBar
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import QTimer
+import time
+import detection
+from openFile import Ui_MainWindow  # openFile modülünden Ui_MainWindow sınıfını içeri aktar
+
+class MyClass(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        # Ui_MainWindow sınıfından bir nesne oluştur
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+
+        # İlgili butonlara tıklama etkinliklerini bağla
+        self.ui.pushButton.clicked.connect(self.getImage)
+        self.ui.pushButton_2.clicked.connect(self.detectionPath)
+        self.ui.pushButton_3.clicked.connect(self.clearPath)
+
+        # Bir QProgressBar nesnesi oluştur
+        self.pbar = QProgressBar(self)
+
+        # QProgressBar'ın konumunu ve boyutunu ayarla
+        self.pbar.setGeometry(QtCore.QRect(220, 685, 561, 31))
+
+        # QProgressBar'ın arka plan rengini ayarla
+        self.pbar.setStyleSheet("background-color: rgb(81, 81, 81);")
+
+        # Algılama butonunu varsayılan olarak devre dışı bırak
+        self.ui.pushButton_2.setEnabled(False)
+
+        # Pencerenin boyutunu sabitle
+        self.setFixedSize(1515, 770)
+
+    def getImage(self):
+        # getImage fonksiyonu tanımlanmalıdır
+        pass
+
+    def detectionPath(self):
+        # detectionPath fonksiyonu tanımlanmalıdır
+        pass
+
+    def clearPath(self):
+        # clearPath fonksiyonu tanımlanmalıdır
+        pass
+*******************
+def getImagePath(self):
+    # QFileDialog'u kullanarak bir dosya seçme penceresi aç
+    fname = QFileDialog.getOpenFileName(self, 'Open file', 'c:', "Image files (*.jpg *.gif)")
+
+    # Seçilen dosyanın yolunu al ve geri döndür
+    return fname[0]
+
+def getImage(self):
+    # Resim yolunu almak için getImagePath fonksiyonunu çağır
+    self.imagePath = self.getImagePath()
+
+    # Eğer resim yolu varsa
+    if self.imagePath:
+        # QGraphicsScene sınıfından bir sahne oluştur
+        scene = QtWidgets.QGraphicsScene(self)
+
+        # QPixmap kullanarak resmi yükle
+        pixmap = QPixmap(self.imagePath)
+
+        # Resmi istediğiniz genişlik ve yükseklikte ayarlayın
+        new_width = 701  # Yeni genişlik
+        new_height = 571  # Yeni yükseklik
+        pixmap = pixmap.scaled(new_width, new_height)
+
+        # QGraphicsPixmapItem sınıfından bir öğe oluştur
+        item = QtWidgets.QGraphicsPixmapItem(pixmap)
+
+        # Öğeyi sahneye ekle
+        scene.addItem(item)
+
+        # Graphics view için sahneyi ayarla
+        self.ui.graphicsView.setScene(scene)
+
+        # Graphics view'un kenarlık stiline uygulanan stilini kaldır
+        self.ui.graphicsView.setStyleSheet("border: none;")
+
+        # İlgili butonu etkinleştir
+        self.ui.pushButton_2.setEnabled(True)
+***********************
+
+def detectionImage(self):
+    # İlerleme çubuğunu sıfırla
+    self.updateProgressBar(0)
+
+    # YOLO algılama çalıştır (bu kısmın detayları verilmemiş)
+    detection.run(source=self.imagePath, exist_ok=True)
+
+    # İlerleme çubuğunu güncelleme döngüsü
+    for i in range(101):
+        # 0.05 saniye bekle
+        time.sleep(0.05)
+
+        # İlerleme çubuğunu güncelle
+        self.updateProgressBar(1)
+
+def detectionPath(self):
+    # Algılama fonksiyonunu çağır ve resmi algılat
+    self.image_Path = self.detectionImage()
+
+    # Yeni dosya yolunu oluştur: "data/images" kısmını "runs/exp" ile değiştir
+    newPath = self.imagePath.replace("data/images", "runs/exp")
+
+    # Eğer yeni dosya yolunda bir resim varsa
+    if self.imagePath:
+        # QGraphicsScene sınıfından bir sahne oluştur
+        scene = QtWidgets.QGraphicsScene(self)
+
+        # QPixmap kullanarak yeni yolu içeren resmi yükle
+        pixmap = QPixmap(newPath)
+
+        # Resmi istediğiniz genişlik ve yükseklikte ayarlayın
+        new_width = 701  # Yeni genişlik
+        new_height = 571  # Yeni yükseklik
+        pixmap = pixmap.scaled(new_width, new_height)
+
+        # QGraphicsPixmapItem sınıfından bir öğe oluştur
+        item = QtWidgets.QGraphicsPixmapItem(pixmap)
+
+        # Öğeyi sahneye ekle
+        scene.addItem(item)
+
+        # Graphics view için sahneyi ayarla
+        self.ui.graphicsView_2.setScene(scene)
+
+        # Graphics view'un kenarlık stiline uygulanan stilini kaldır
+        self.ui.graphicsView_2.setStyleSheet("border: none;")
+************
+# İlerleme çubuğunu güncellemek için kullanılan bir metod
+def updateProgressBar(self, value):
+    self.pbar.setValue(value)
+
+# PyQt5 uygulamasını başlat
+app = QtWidgets.QApplication([])
+
+# MyClass sınıfından bir nesne oluştur
+dialog = MyClass()
+
+# Uygulamayı görüntüle
+dialog.show()
+
+# PyQt5 uygulamasının ana döngüsünü başlat
+app.exec_()
